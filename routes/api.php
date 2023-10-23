@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\APIs\StaffTypeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\APIs\V1\StaffController;
+use App\Http\Controllers\APIs\V1\StaffTypeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +23,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::prefix('hospital')->group(function()
 {
 
+    //Staff Types Routes
     Route::apiResource('staff_types', StaffTypeController::class);
+
+    //Staff routes
+    Route::apiResource('staff', StaffController::class);
+
 });
 
 

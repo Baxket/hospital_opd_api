@@ -23,7 +23,9 @@ class DatabaseSeeder extends Seeder
             [
     
                 // StaffTypeSeeder::class,
-                StaffSeeder::class,
+                // StaffSeeder::class,
+                PatientSeeder::class,
+
 
             ]
             );
