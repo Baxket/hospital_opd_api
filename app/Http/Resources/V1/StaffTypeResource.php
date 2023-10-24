@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\V1;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class StaffType extends JsonResource
+class StaffTypeResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,6 +14,9 @@ class StaffType extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+        ];
     }
 }

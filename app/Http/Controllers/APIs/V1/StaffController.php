@@ -45,24 +45,27 @@ class StaffController extends Controller
 
         if(count($query_items) == 0)
         {
-            return new StaffCollection(Staff::paginate());
-
+            $staff = Staff::with('staff_type')->where($query_items)->paginate();
+            return new StaffCollection($staff->appends($request->query()));
         }
         elseif($this->arrayContainsString($query_items, "staff_types.name"))
         {
-            return new StaffCollection(Staff::with('staff_type')->whereHas('staff_type', function ($query) use (&$query_items) {
+            $staff = Staff::with('staff_type')->whereHas('staff_type', function ($query) use (&$query_items) {
                 $query->where($query_items);
-            })->paginate());
+            })->paginate();
+
+            return new StaffCollection($staff->appends($request->query()));
 
         }
         else
         {
 
-            return new StaffCollection(Staff::where($query_items)->paginate());
+            $staff = Staff::with('staff_type')->where($query_items)->paginate();
+            return new StaffCollection($staff->appends($request->query()));
 
         }
 
-        Staff::where($query_items);
+       
 
     }
 

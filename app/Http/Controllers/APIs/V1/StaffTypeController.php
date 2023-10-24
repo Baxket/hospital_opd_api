@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\APIs;
+namespace App\Http\Controllers\APIs\V1;
 
 use App\Models\StaffType;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\V1\StaffTypeResource;
+use App\Http\Resources\V1\StaffTypeCollection;
 
 class StaffTypeController extends Controller
 {
@@ -16,7 +18,8 @@ class StaffTypeController extends Controller
     {
         //
 
-        return StaffType::all();
+        return new StaffTypeCollection(StaffType::paginate());
+
     }
 
     /**
@@ -41,6 +44,8 @@ class StaffTypeController extends Controller
     public function show(StaffType $staffType)
     {
         //
+        return new StaffTypeResource($staffType);
+
     }
 
     /**
