@@ -10,6 +10,17 @@ class Staff extends Authenticatable
 {
     use HasFactory;
 
+
+    protected $fillable = [
+        'staff_num',
+        'full_name',
+        'staff_type_id',
+        'phone_number',
+        'dob',
+        'residence',
+        'email',
+
+    ];
     
     public function staff_type()
     {

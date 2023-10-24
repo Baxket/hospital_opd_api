@@ -20,7 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::prefix('hospital')->group(function()
+Route::prefix('hospital')->middleware('auth:sanctum')->group(function()
 {
 
     //Staff Types Routes
