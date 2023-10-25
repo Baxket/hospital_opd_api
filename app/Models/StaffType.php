@@ -9,6 +9,10 @@ class StaffType extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name'
+    ];
+
     public function staff()
     {
         return $this->hasMany( Staff::class);

@@ -6,6 +6,7 @@ use App\Models\StaffType;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StaffTypeRequest;
 use App\Http\Resources\V1\StaffTypeResource;
 use App\Http\Resources\V1\StaffTypeCollection;
 
@@ -33,9 +34,12 @@ class StaffTypeController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StaffTypeRequest $request)
     {
         //
+
+        return new StaffTypeResource(StaffType::create($request->all()));
+
     }
 
     /**
