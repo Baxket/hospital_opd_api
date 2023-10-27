@@ -42,7 +42,7 @@ return [
         ],
         'staff' => [
             'driver' => 'session',
-            'provider' => 'staffs',
+            'provider' => 'staff',
         ],
     ],
 

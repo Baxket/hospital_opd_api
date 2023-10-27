@@ -6,15 +6,30 @@ namespace App\Http\Controllers\APIs\V1;
 use App\Models\Staff;
 use Illuminate\Http\Request;
 use App\Filters\V1\StaffFilter;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\StaffRequest;
-use App\Http\Requests\StaffUpdateRequest;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Resources\V1\StaffResource;
+use App\Http\Requests\StaffUpdateRequest;
 use App\Http\Resources\V1\StaffCollection;
-
+use App\Http\Resources\V1\StaffTypeResource;
 
 class StaffController extends Controller
 {
+
+
+     function __construct()
+    {
+         $this->middleware('auth:staff', ['only' => ['view', 'show', 'edit', 'update']]);
+         $this->middleware('auth:sanctum', ['only' => ['create','store']]);
+      
+    }
+
+    public static function generateStaffNum($id)
+    {
+        return 'S' .'1'. str_repeat('0', 4 - strlen(strval($id))) . strval($id). date('y');
+    }
+
 
     public function arrayContainsString($array, $searchString) {
         foreach ($array as $value) {
@@ -40,7 +55,7 @@ class StaffController extends Controller
         $filter = new StaffFilter();
 
         $query_items = $filter->transform($request); //['column', 'operator', 'value']
-        //
+
 
 
         if(count($query_items) == 0)
@@ -83,7 +98,38 @@ class StaffController extends Controller
     public function store(StaffRequest $request)
     {
         //
-        return new StaffResource(Staff::create($request->all()));
+
+
+        $data = $request->all();
+        $data['staff_num'] = "N/A";
+
+        $data['password'] = bcrypt($request->password);
+        $staff = Staff::create($data);
+        $staff->staff_num = $this::generateStaffNum($staff->id);
+        $staff->save();
+
+        
+        $adminToken = $staff->createToken('admin-token', ['create', 'delete', 'update']);
+        $updateToken = $staff->createToken('update-token', ['update', 'edit']);
+        $basicToken = $staff->createToken('basic-token' , ['view']);
+
+        return array(
+            'id' => $staff->id,
+            'staffNum' => $staff->staff_num,
+            'fullName' => $staff->full_name,
+            'phoneNumber' => $staff->id,
+            'dob' => $staff->dob,
+            'residence' => $staff->residence,
+            'email' => $staff->email,
+            'staffType' => new StaffTypeResource($staff->staff_type),
+            "token" => array(
+                "adminToken" => $adminToken,
+                "updateToken" => $updateToken,
+                "basicToken" => $basicToken,
+            )
+
+        );
+         
 
     }
 

@@ -4,7 +4,7 @@ namespace App\Http\Resources\V1;
 
 use Illuminate\Http\Request;
 use App\Http\Resources\V1\StaffTypeResource;
-use App\Http\Resources\V1\StaffTypeCollection;
+    use App\Http\Resources\V1\StaffTypeCollection;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class StaffResource extends JsonResource

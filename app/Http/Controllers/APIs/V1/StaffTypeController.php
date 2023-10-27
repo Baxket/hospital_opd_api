@@ -12,6 +12,13 @@ use App\Http\Resources\V1\StaffTypeCollection;
 
 class StaffTypeController extends Controller
 {
+
+    function __construct()
+    {
+         $this->middleware('auth:staff', ['only' => ['view', 'show', 'edit', 'update']]);
+         $this->middleware('auth:sanctum', ['only' => ['create','store']]);
+       
+    }
     /**
      * Display a listing of the resource.
      */
@@ -19,7 +26,7 @@ class StaffTypeController extends Controller
     {
         //
 
-        return new StaffTypeCollection(StaffType::paginate());
+        return new StaffTypeCollection(StaffType::all());
 
     }
 
@@ -37,6 +44,8 @@ class StaffTypeController extends Controller
     public function store(StaffTypeRequest $request)
     {
         //
+        $this->middleware('auth:sanctum');
+
 
         return new StaffTypeResource(StaffType::create($request->all()));
 

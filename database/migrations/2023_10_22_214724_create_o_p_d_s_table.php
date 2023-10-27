@@ -11,16 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
+       
+
         Schema::create('o_p_d_s', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('staff_id');
-            $table->unsignedBigInteger('patient_id');
+            $table->id(); 
+            $table->unsignedBigInteger('staff_id');//Foreign ID
+            $table->unsignedBigInteger('patient_id'); //Foreign ID
             $table->string('weight');
             $table->string('height');
-            $table->string('bp');
+            $table->string('blood_pressure');
             $table->string('temperature');
-            $table->string('recordDate');
-            $table->timestamps();
+            $table->timestamps(); //created_at & updated_at
             $table->foreign('staff_id')->references('id')->on('staff')->onDelete('cascade');
             $table->foreign('patient_id')->references('id')->on('patients')->onDelete('cascade');
 

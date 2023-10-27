@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Staff extends Authenticatable
 {
-    use HasFactory;
+    use HasApiTokens, HasFactory, Notifiable;
 
 
     protected $fillable = [
@@ -19,7 +21,11 @@ class Staff extends Authenticatable
         'dob',
         'residence',
         'email',
+        'password'
+    ];
 
+    protected $hidden = [
+        'password',
     ];
     
     public function staff_type()

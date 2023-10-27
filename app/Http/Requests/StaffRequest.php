@@ -32,13 +32,14 @@ class StaffRequest extends FormRequest
         $staffTypes = StaffType::pluck('id')->toArray();
         return [
             //
-            'staffNum' => ['required'],
+            // 'staffNum' => ['required'],
             'fullName' => ['required'],
             'staffType' => ['required', Rule::in($staffTypes)],
             'phoneNumber' => ['required', 'digits:10'],
             'dob' => ['required'],
             'residence' => ['required'],
             'email' => ['required', 'email'],
+            'password' => ['required', 'confirmed']
 
         ];
     }
