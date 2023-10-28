@@ -20,8 +20,8 @@ class StaffController extends Controller
 
      function __construct()
     {
-         $this->middleware('auth:staff', ['only' => ['view', 'show', 'edit', 'update']]);
-         $this->middleware('auth:sanctum', ['only' => ['create','store']]);
+        $this->middleware('auth:staff', ['only' => ['update','edit']]);
+        $this->middleware('auth:sanctum', ['only' => ['create','store', 'index']]);
       
     }
 
@@ -110,8 +110,7 @@ class StaffController extends Controller
 
         
         $adminToken = $staff->createToken('admin-token', ['create', 'delete', 'update']);
-        $updateToken = $staff->createToken('update-token', ['update', 'edit']);
-        $basicToken = $staff->createToken('basic-token' , ['view']);
+    
 
         return array(
             'id' => $staff->id,
@@ -122,11 +121,8 @@ class StaffController extends Controller
             'residence' => $staff->residence,
             'email' => $staff->email,
             'staffType' => new StaffTypeResource($staff->staff_type),
-            "token" => array(
-                "adminToken" => $adminToken,
-                "updateToken" => $updateToken,
-                "basicToken" => $basicToken,
-            )
+            "token" => $adminToken,
+
 
         );
          

@@ -15,8 +15,8 @@ class StaffTypeController extends Controller
 
     function __construct()
     {
-         $this->middleware('auth:staff', ['only' => ['view', 'show', 'edit', 'update']]);
-         $this->middleware('auth:sanctum', ['only' => ['create','store']]);
+         $this->middleware('auth:staff', ['only' => ['update','edit']]);
+         $this->middleware('auth:sanctum', ['only' => ['create','store', 'index']]);
        
     }
     /**

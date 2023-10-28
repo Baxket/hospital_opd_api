@@ -38,7 +38,7 @@ class StaffRequest extends FormRequest
             'phoneNumber' => ['required', 'digits:10'],
             'dob' => ['required'],
             'residence' => ['required'],
-            'email' => ['required', 'email'],
+            'email' => ['required', 'email', 'unique:staff'],
             'password' => ['required', 'confirmed']
 
         ];
