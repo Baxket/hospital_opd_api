@@ -28,7 +28,6 @@ To run this project, ensure that you have the following prerequisites installed 
    Extract the zip file to get all the files or if from github, clone it and open it with vsCode.
 
    ```bash
-   git clone https://github.com/Baxket/Task-Management-System
    cd <your-project-directory>
     ```
 2. **Install PHP Dependencies:**
@@ -59,7 +58,7 @@ To run this project, ensure that you have the following prerequisites installed 
         DB_CONNECTION=mysql
         DB_HOST=127.0.0.1
         DB_PORT=3306
-        DB_DATABASE=task_management
+        DB_DATABASE=hospital-opd
         DB_USERNAME=root
         DB_PASSWORD=
     ```
